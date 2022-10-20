@@ -285,12 +285,15 @@ void findResName() {
                 already = true;
             }
             printRes(resList[i]);
+            cout << endl;
+            return;
         }
     }
 
     if(already == false) cout << "We couldn't find any reservation." << endl;
 
     cout << endl;
+    return;
 }
 
 /* finds a reservation by number or name */
@@ -303,21 +306,11 @@ int findReservation(bool fromList) {
     cout << "0. exit" << endl;
     cout << "action: ";
     
-    int action = 0;
-    do {
-        cin >> action;
-        cout << endl;
-
-        if (action == 1) findResNum();
-        else if (action == 2) findResName();
-        else cout << "Incorect option! Please try again: ";
-    } while (action > 0);
-    
-
-    // cin >> action;
-
-    // if (action == 1) findResNum();
-    // else if (action == 2) findResName()
+    int action;
+    cin >> action;
+    cout << endl;
+    if (action == 1) findResNum();
+    else if (action == 2) findResName();
 
     // select another action
     cout << "Select action:" << endl;
@@ -330,8 +323,6 @@ int findReservation(bool fromList) {
 
     return action;
 }
-
-/* sub menu for the list of reservation */
 
 /* shows available rooms */
 int seeAvailableRooms (room hotel[]) {
@@ -555,13 +546,15 @@ int main() {
             cout << "Error: incorrect input! Please try again." << endl << endl;
             break;
         }
+        do {
+            if (next == 2) {
+                if (option == 5) findReservation(true);
+                else viewReservations();
+            }
+            else if(next == 3) reserveRoom(hotel);
+            else if (next == 4) finishBooking(hotel);
+        } while(next >= 2);
 
-        if (next == 2) {
-            if (option == 5) findReservation(true);
-            else viewReservations();
-        }
-        else if(next == 3) reserveRoom(hotel);
-        else if (next == 4) finishBooking(hotel);
     } while (option != 0);
         
     return 0;
